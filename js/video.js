@@ -37,18 +37,13 @@ slowerButton.addEventListener("click", function () {
 
 //faster button
 fasterButton.addEventListener("click", function () {
-    switch (mv.playbackRate) {
-        case 0.5:
-            mv.playbackRate = 1;
-            break;
-        case 1:
-            mv.playbackRate = 2;
-            break;
-        case 2:
-            alert("Video is at fastest speed!");
-            break;
+    if (mv.playbackRate === 0.5) {
+        mv.playbackRate = 1;
+    } else if (mv.playbackRate === 1) {
+        mv.playbackRate = 2;
+    } else {
+        alert("Video is at fastest speed!");
     }
-
 });
 
 //mute/unmute button
@@ -56,9 +51,16 @@ muteButton.addEventListener('click', function () {
     if (mv.muted) {
         mv.muted = false;
         muteButton.innerHTML = "Mute";
+        slider.value = mv.tempVolume;
+        volumeSet.innerHTML = slider.value;
+        mv.volume = mv.tempVolume / 100;
+
     } else {
         mv.muted = true;
         muteButton.innerHTML = "UnMute";
+        mv.tempVolume = slider.value;
+        slider.value = 0;
+        volumeSet.innerHTML = slider.value;
     }
 });
 
